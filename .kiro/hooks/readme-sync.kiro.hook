@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "name": "Keep README page list in sync",
+  "description": "When the page registry changes, update the page directory table in README.md.",
+  "version": "1",
+  "when": { "type": "fileEdited", "patterns": ["src/pages/index.js"] },
+  "then": { "type": "askAgent", "prompt": "The Ghostext page registry changed. Update the 'Page directory' table in README.md so it lists every registered page number, title and data source." }
+}

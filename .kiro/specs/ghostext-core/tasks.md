@@ -7,49 +7,49 @@
 ## Phase 1: Foundation (Grid Model & Renderers)
 
 ### Task 1: Grid Model Core [US-1, US-10]
-- [ ] **1.1** Create `src/grid.js` with colour constants (BLACK=0 through WHITE=7)
-- [ ] **1.2** Implement `createPage(number, subpage, subpageCount)` returning 24×40 cell grid
-- [ ] **1.3** Implement `wordWrap(text, width)` with word-boundary splitting
-- [ ] **1.4** Implement `transliterate(text)` mapping Unicode → ASCII (smart quotes, em-dashes, etc.)
-- [ ] **1.5** Implement `writeText(page, row, col, text, fg, bg, maxWidth)` with word-wrap and transliteration
-- [ ] **1.6** Implement `setHeader(page, serviceName, pageNumber, dateTime)` writing to row 0
-- [ ] **1.7** Implement `setFastext(page, red, green, yellow, cyan)` writing to row 23
+- [x] **1.1** Create `src/grid.js` with colour constants (BLACK=0 through WHITE=7)
+- [x] **1.2** Implement `createPage(number, subpage, subpageCount)` returning 24×40 cell grid
+- [x] **1.3** Implement `wordWrap(text, width)` with word-boundary splitting
+- [x] **1.4** Implement `transliterate(text)` mapping Unicode → ASCII (smart quotes, em-dashes, etc.)
+- [x] **1.5** Implement `writeText(page, row, col, text, fg, bg, maxWidth)` with word-wrap and transliteration
+- [x] **1.6** Implement `setHeader(page, serviceName, pageNumber, dateTime)` writing to row 0
+- [x] **1.7** Implement `setFastext(page, red, green, yellow, cyan)` writing to row 23
 
 **Acceptance:** All functions exist, handle edge cases (empty strings, overflow), and maintain 24×40 invariant
 
 ---
 
 ### Task 2: HTML Renderer [US-1, US-2]
-- [ ] **2.1** Create `src/render/html.js`
-- [ ] **2.2** Implement `renderHTML(page)` returning grid as nested `<div>` and `<span>` elements
-- [ ] **2.3** Apply CSS classes `fg-X` and `bg-X` for each cell's colours
-- [ ] **2.4** Return complete HTML fragment (no `<html>` wrapper, just grid markup)
+- [x] **2.1** Create `src/render/html.js`
+- [x] **2.2** Implement `renderHTML(page)` returning grid as nested `<div>` and `<span>` elements
+- [x] **2.3** Apply CSS classes `fg-X` and `bg-X` for each cell's colours
+- [x] **2.4** Return complete HTML fragment (no `<html>` wrapper, just grid markup)
 
 **Acceptance:** Valid HTML, correct colour classes, 24 rows × 40 columns
 
 ---
 
 ### Task 3: ANSI Renderer [US-1, US-3]
-- [ ] **3.1** Create `src/render/ansi.js`
-- [ ] **3.2** Implement `renderANSI(page)` building string with ANSI escape codes
-- [ ] **3.3** Use `\x1b[3Xm` for foreground, `\x1b[4Xm` for background, `\x1b[0m` for reset
-- [ ] **3.4** Optimize to minimize escape sequences (only emit when colour changes)
+- [x] **3.1** Create `src/render/ansi.js`
+- [x] **3.2** Implement `renderANSI(page)` building string with ANSI escape codes
+- [x] **3.3** Use `\x1b[3Xm` for foreground, `\x1b[4Xm` for background, `\x1b[0m` for reset
+- [x] **3.4** Optimize to minimize escape sequences (only emit when colour changes)
 
 **Acceptance:** Output renders correctly in terminal with colour support (tested manually)
 
 ---
 
 ### Task 4: JSON Renderer [US-1, US-2]
-- [ ] **4.1** Create `src/render/json.js`
-- [ ] **4.2** Implement `renderJSON(page)` returning stringified JSON of page structure
-- [ ] **4.3** Include `number`, `subpage`, `subpageCount`, and `cells` array
+- [x] **4.1** Create `src/render/json.js`
+- [x] **4.2** Implement `renderJSON(page)` returning stringified JSON of page structure
+- [x] **4.3** Include `number`, `subpage`, `subpageCount`, and `cells` array
 
 **Acceptance:** Valid JSON, parseable by standard JSON parser
 
 ---
 
 ### Task 5: Render Module Index
-- [ ] **5.1** Create `src/render/index.js` exporting `renderHTML`, `renderANSI`, `renderJSON`
+- [x] **5.1** Create `src/render/index.js` exporting `renderHTML`, `renderANSI`, `renderJSON`
 
 **Acceptance:** All renderers accessible from single import
 
@@ -58,54 +58,54 @@
 ## Phase 2: Data Sources & Caching
 
 ### Task 6: TTL Cache [US-4, US-5, US-6]
-- [ ] **6.1** Create `src/sources/cache.js`
-- [ ] **6.2** Implement `Cache` class with `get(key)` and `set(key, value, ttlSeconds)` methods
-- [ ] **6.3** Handle expiration: return `null` if TTL expired, delete expired entries
+- [x] **6.1** Create `src/sources/cache.js`
+- [x] **6.2** Implement `Cache` class with `get(key)` and `set(key, value, ttlSeconds)` methods
+- [x] **6.3** Handle expiration: return `null` if TTL expired, delete expired entries
 
 **Acceptance:** Cache stores and retrieves values, respects TTL
 
 ---
 
 ### Task 7: Fetch Wrapper
-- [ ] **7.1** Create `src/sources/fetch.js`
-- [ ] **7.2** Implement `fetchWithTimeout(url, timeoutMs = 5000)` wrapping `fetch` with timeout
-- [ ] **7.3** Throw error if timeout exceeded
+- [x] **7.1** Create `src/sources/fetch.js`
+- [x] **7.2** Implement `fetchWithTimeout(url, timeoutMs = 5000)` wrapping `fetch` with timeout
+- [x] **7.3** Throw error if timeout exceeded
 
 **Acceptance:** Fetch resolves or rejects within timeout
 
 ---
 
 ### Task 8: RSS Source [US-4]
-- [ ] **8.1** Create `src/sources/rss.js`
-- [ ] **8.2** Implement `fetchRSS(url, cache, fetchFn)` fetching BBC RSS feed
-- [ ] **8.3** Parse XML using regex to extract `<title>` from `<item>` elements (no XML parser dependency)
-- [ ] **8.4** Cache result for 5 minutes
-- [ ] **8.5** On failure, return `cache.get(url + ':last-good')` with `signalLost: true`
-- [ ] **8.6** On success, also store result in `url + ':last-good'`
+- [x] **8.1** Create `src/sources/rss.js`
+- [x] **8.2** Implement `fetchRSS(url, cache, fetchFn)` fetching BBC RSS feed
+- [x] **8.3** Parse XML using regex to extract `<title>` from `<item>` elements (no XML parser dependency)
+- [x] **8.4** Cache result for 5 minutes
+- [x] **8.5** On failure, return `cache.get(url + ':last-good')` with `signalLost: true`
+- [x] **8.6** On success, also store result in `url + ':last-good'`
 
 **Acceptance:** Returns array of headline strings, handles cache and failure fallback
 
 ---
 
 ### Task 9: Weather Source [US-5]
-- [ ] **9.1** Create `src/sources/weather.js`
-- [ ] **9.2** Implement `fetchWeather(lat, lon, cache, fetchFn)` fetching from Open-Meteo
-- [ ] **9.3** Parse JSON response extracting `temperature_2m`, `relative_humidity_2m`, `weather_code`
-- [ ] **9.4** Implement `weatherCodeToText(code)` mapping WMO codes to strings (clear, cloudy, rainy, etc.)
-- [ ] **9.5** Cache result for 10 minutes
-- [ ] **9.6** On failure, return last-good with `signalLost: true`
+- [x] **9.1** Create `src/sources/weather.js`
+- [x] **9.2** Implement `fetchWeather(lat, lon, cache, fetchFn)` fetching from Open-Meteo
+- [x] **9.3** Parse JSON response extracting `temperature_2m`, `relative_humidity_2m`, `weather_code`
+- [x] **9.4** Implement `weatherCodeToText(code)` mapping WMO codes to strings (clear, cloudy, rainy, etc.)
+- [x] **9.5** Cache result for 10 minutes
+- [x] **9.6** On failure, return last-good with `signalLost: true`
 
 **Acceptance:** Returns `{ temp, humidity, condition }` object, handles cache and failure fallback
 
 ---
 
 ### Task 10: Hacker News Source [US-6]
-- [ ] **10.1** Create `src/sources/hackernews.js`
-- [ ] **10.2** Implement `fetchHackerNews(cache, fetchFn)` fetching top stories
-- [ ] **10.3** Fetch top story IDs from `https://hacker-news.firebaseio.com/v0/topstories.json`
-- [ ] **10.4** Fetch details for top 10 stories from `https://hacker-news.firebaseio.com/v0/item/{id}.json`
-- [ ] **10.5** Cache result for 5 minutes
-- [ ] **10.6** On failure, return last-good with `signalLost: true`
+- [x] **10.1** Create `src/sources/hackernews.js`
+- [x] **10.2** Implement `fetchHackerNews(cache, fetchFn)` fetching top stories
+- [x] **10.3** Fetch top story IDs from `https://hacker-news.firebaseio.com/v0/topstories.json`
+- [x] **10.4** Fetch details for top 10 stories from `https://hacker-news.firebaseio.com/v0/item/{id}.json`
+- [x] **10.5** Cache result for 5 minutes
+- [x] **10.6** On failure, return last-good with `signalLost: true`
 
 **Acceptance:** Returns array of `{ title, score }` objects, handles cache and failure fallback
 

@@ -1,0 +1,21 @@
+{
+  "name": "ghostext",
+  "version": "1.0.0",
+  "description": "Ghostext: Teletext/Ceefax resurrection for Kiroween 2026",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "teletext",
+    "ceefax",
+    "retro",
+    "terminal",
+    "news",
+    "weather"
+  ],
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,37 @@
+{
+  "name": "ghostext-dev",
+  "description": "Development agent for Ghostext project",
+  "prompt": "You are developing Ghostext, a teletext/Ceefax resurrection for Kiroween 2026. Follow the steering docs at .kiro/steering/ (tech, structure, product) and the spec at .kiro/specs/ghostext-core/. Use zero runtime dependencies beyond Node std lib. Keep the 24\u00d740 grid model pure, renderers stateless, and tests comprehensive.",
+  "tools": [
+    "fs_read",
+    "fs_write",
+    "execute_bash"
+  ],
+  "resources": [
+    "file://.kiro/steering/**/*.md",
+    "file://.kiro/specs/ghostext-core/**/*.md"
+  ],
+  "allowedTools": [
+    "fs_read",
+    "fs_write",
+    "execute_bash"
+  ],
+  "hooks": {
+    "agentSpawn": [
+      {
+        "command": "git status --short && git log --oneline -5"
+      }
+    ],
+    "userPromptSubmit": [
+      {
+        "command": "grep -c '\\- \\[ \\]' .kiro/specs/ghostext-core/tasks.md | sed 's/^/open spec tasks: /'"
+      }
+    ],
+    "postToolUse": [
+      {
+        "matcher": "fs_write",
+        "command": "node --test 2>&1 | grep -E '^# (pass|fail)'"
+      }
+    ]
+  }
+}

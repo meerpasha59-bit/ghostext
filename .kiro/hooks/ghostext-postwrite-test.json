@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Run Tests After fs_write",
+      "trigger": "PostToolUse",
+      "matcher": "fs_write",
+      "action": {
+        "type": "command",
+        "command": "node --test 2>&1 | tail -5"
+      }
+    }
+  ]
+}

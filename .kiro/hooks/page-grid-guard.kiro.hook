@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "name": "Teletext grid guard",
+  "description": "When a page generator changes, verify every page it produces is exactly 24x40 and uses only the 8 teletext colours.",
+  "version": "1",
+  "when": { "type": "fileEdited", "patterns": ["src/pages/**/*.js"] },
+  "then": { "type": "askAgent", "prompt": "A Ghostext page generator changed. Generate its pages with offline fixture data and assert each page is 24 rows x 40 columns, row 0 is the header, row 23 is the Fastext row, and colours are 0-7 only. Follow .kiro/steering/product.md. Fix violations." }
+}

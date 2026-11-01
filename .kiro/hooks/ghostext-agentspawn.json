@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Agent Spawn Status",
+      "trigger": "SessionStart",
+      "action": {
+        "type": "command",
+        "command": "git status --short"
+      }
+    }
+  ]
+}
