@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ghostext — A Teletext/Ceefax resurrection with BBC News, Weather, and Tech">
+  <title>Ghostext</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div id="teletext-display" class="display"></div>
+    
+    <div id="input-bar">
+      <div id="page-input-display">
+        <span id="page-digits">---</span>
+      </div>
+      <div id="onscreen-keypad">
+        <div class="keypad-row">
+          <button class="keypad-btn" data-key="1">1</button>
+          <button class="keypad-btn" data-key="2">2</button>
+          <button class="keypad-btn" data-key="3">3</button>
+        </div>
+        <div class="keypad-row">
+          <button class="keypad-btn" data-key="4">4</button>
+          <button class="keypad-btn" data-key="5">5</button>
+          <button class="keypad-btn" data-key="6">6</button>
+        </div>
+        <div class="keypad-row">
+          <button class="keypad-btn" data-key="7">7</button>
+          <button class="keypad-btn" data-key="8">8</button>
+          <button class="keypad-btn" data-key="9">9</button>
+        </div>
+        <div class="keypad-row">
+          <button class="keypad-btn" data-key="0">0</button>
+          <button class="keypad-btn clear" id="clear-btn">CLR</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="fastext-row">
+      <button class="fastext-btn fastext-red" id="fastext-red" title="F1 or Red key">RED</button>
+      <button class="fastext-btn fastext-green" id="fastext-green" title="F2 or Green key">GREEN</button>
+      <button class="fastext-btn fastext-yellow" id="fastext-yellow" title="F3 or Yellow key">YELLOW</button>
+      <button class="fastext-btn fastext-cyan" id="fastext-cyan" title="F4 or Cyan key">CYAN</button>
+    </div>
+
+    <div id="help-text">
+      Type 3-digit page number (100-899) • F1-F4 = Fastext keys • F5 = Refresh
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

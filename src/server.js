@@ -193,5 +193,7 @@ export async function startServers(httpPort = 3000, tcpPort = 2323) {
 
 // Start servers if run directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  startServers().catch(console.error);
+  const httpPort = parseInt(process.env.PORT || '3000', 10);
+  const tcpPort = parseInt(process.env.TCP_PORT || '2323', 10);
+  startServers(httpPort, tcpPort).catch(console.error);
 }

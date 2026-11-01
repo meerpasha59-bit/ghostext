@@ -16,15 +16,22 @@ const BBC_RSS_URL = 'https://feeds.bbci.co.uk/news/rss.xml';
 async function generateNewsPage(pageNum, ctx) {
   const page = createPage(pageNum);
 
-  // Header
+  // Header with full date/time format: "Sun 01 Nov  05:58:12"
   const now = new Date();
   const dateStr = now.toLocaleDateString('en-GB', {
     weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-    year: '2-digit'
+    day: '2-digit',
+    month: 'short'
   });
-  setHeader(page, 'BBC News', pageNum, dateStr);
+  const timeStr = now.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+  const dateTime = `${dateStr}  ${timeStr}`;
+  
+  setHeader(page, 'BBC News', pageNum, dateTime);
 
   try {
     // Fetch RSS feed

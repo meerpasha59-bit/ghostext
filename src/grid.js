@@ -180,29 +180,19 @@ export function setHeader(page, serviceName, pageNumber, dateTime) {
     };
   }
 
-  // Write service name left-aligned
-  let col = 0;
-  for (const ch of serviceName) {
-    if (col < 15) {
-      page.cells[0][col] = { ch, fg: COLOURS.WHITE, bg: COLOURS.BLACK, flags: 0 };
-      col++;
-    }
-  }
-
-  // Write page number center-ish (columns 15-20)
+  // Format header: " P:NNN  SERVICE  DATE/TIME"
+  // Example: " P100  Ghostext  Sun 01 Nov  12:34:56"
   const pageStr = String(pageNumber).padStart(3, ' ');
-  for (let i = 0; i < 3 && col < 25; i++) {
-    page.cells[0][col] = { ch: pageStr[i], fg: COLOURS.WHITE, bg: COLOURS.BLACK, flags: 0 };
-    col++;
-  }
-
-  // Write date/time right-aligned
-  col = Math.max(col, 40 - dateTime.length);
-  for (const ch of dateTime) {
-    if (col < 40) {
-      page.cells[0][col] = { ch, fg: COLOURS.WHITE, bg: COLOURS.BLACK, flags: 0 };
-      col++;
-    }
+  const headerText = ` P${pageStr}  ${serviceName.padEnd(15)}${dateTime}`;
+  
+  // Write header, truncated/fitted to 40 columns
+  for (let col = 0; col < 40 && col < headerText.length; col++) {
+    page.cells[0][col] = {
+      ch: headerText[col],
+      fg: COLOURS.WHITE,
+      bg: COLOURS.BLACK,
+      flags: 0
+    };
   }
 }
 

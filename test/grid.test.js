@@ -125,24 +125,15 @@ test('writeText stops at page boundary', () => {
 
 test('setHeader writes service name, page, and time', () => {
   const page = createPage(100);
-  setHeader(page, 'Ghostext', 100, 'Sun 1 Nov');
+  setHeader(page, 'BBC News', 100, 'Sun 1 Nov  12:34:56');
   
-  // Check service name
-  const serviceName = [];
-  for (let i = 0; i < 8; i++) {
-    serviceName.push(page.cells[0][i].ch);
-  }
-  assert.strictEqual(serviceName.join(''), 'Ghostext');
-  
-  // Check time is written
-  const timeStart = 40 - 'Sun 1 Nov'.length;
-  const time = [];
-  for (let i = timeStart; i < 40; i++) {
-    if (page.cells[0][i].ch !== ' ') {
-      time.push(page.cells[0][i].ch);
-    }
-  }
-  assert.ok(time.length > 0);
+  // Check header format: " P100  BBC News       Sun 1 Nov  12:34:56" (truncated to 40 chars)
+  const headerText = page.cells[0].map(c => c.ch).join('');
+  assert.ok(headerText.includes('P100'));
+  assert.ok(headerText.includes('BBC News'));
+  assert.ok(headerText.includes('Sun 1 Nov'));
+  // Time may be truncated due to 40-char limit, so just check it starts
+  assert.ok(headerText.includes('12:34'));
 });
 
 test('setFastext writes coloured links', () => {

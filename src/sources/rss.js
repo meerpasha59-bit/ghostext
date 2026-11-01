@@ -51,8 +51,14 @@ function parseRSS(xml) {
 
   while ((itemMatch = itemRegex.exec(xml)) !== null) {
     const itemXml = itemMatch[0];
-    const titleRegex = /<title[^>]*>([^<]*)<\/title>/;
-    const titleMatch = titleRegex.exec(itemXml);
+
+    // Try to match title with CDATA: <title><![CDATA[...]]></title>
+    let titleMatch = /<title[^>]*><!\[CDATA\[([\s\S]*?)\]\]><\/title>/.exec(itemXml);
+
+    // Fallback to plain text title if no CDATA
+    if (!titleMatch) {
+      titleMatch = /<title[^>]*>([^<]*)<\/title>/.exec(itemXml);
+    }
 
     if (titleMatch && titleMatch[1]) {
       const title = titleMatch[1]
