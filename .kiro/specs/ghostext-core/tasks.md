@@ -236,45 +236,45 @@
 ## Phase 5: Web Front-End
 
 ### Task 21: Static HTML [US-2]
-- [ ] **21.1** Create `public/index.html`
-- [ ] **21.2** Define `<div id="teletext-display">` for grid rendering
-- [ ] **21.3** Link to `style.css` and `app.js` (ES module)
-- [ ] **21.4** Add basic meta tags (viewport, charset, title)
+- [x] **21.1** Create `public/index.html`
+- [x] **21.2** Define `<div id="teletext-display">` for grid rendering
+- [x] **21.3** Link to `style.css` and `app.js` (ES module)
+- [x] **21.4** Add basic meta tags (viewport, charset, title)
 
 **Acceptance:** HTML structure valid, links to assets
 
 ---
 
 ### Task 22: JavaScript Client [US-2]
-- [ ] **22.1** Create `public/app.js`
-- [ ] **22.2** Implement `fetchPage(num)` calling `/api/page/${num}`
-- [ ] **22.3** Implement `renderPage(page)` building CSS grid from cells
-- [ ] **22.4** Add keydown listener for digits (0-9), accumulate 3-digit buffer
-- [ ] **22.5** On complete 3-digit input, call `fetchPage`
-- [ ] **22.6** Add keydown listeners for Fastext keys (F1=red, F2=green, F3=yellow, F4=cyan)
-- [ ] **22.7** Load page 100 on initial load
+- [x] **22.1** Create `public/app.js`
+- [x] **22.2** Implement `fetchPage(num)` calling `/api/page/${num}`
+- [x] **22.3** Implement `renderPage(page)` building CSS grid from cells
+- [x] **22.4** Add keydown listener for digits (0-9), accumulate 3-digit buffer
+- [x] **22.5** On complete 3-digit input, call `fetchPage`
+- [x] **22.6** Add keydown listeners for Fastext keys (F1=red, F2=green, F3=yellow, F4=cyan)
+- [x] **22.7** Load page 100 on initial load
 
 **Acceptance:** Web UI navigates pages via keyboard
 
 ---
 
 ### Task 23: CSS Styling [US-2]
-- [ ] **23.1** Create `public/style.css`
-- [ ] **23.2** Define CSS grid for 24 rows × 40 columns
-- [ ] **23.3** Style `.cell` with monospace font, fixed width (1ch), fixed height (1.2em)
-- [ ] **23.4** Define colour classes `.fg-0` through `.fg-7`, `.bg-0` through `.bg-7`
-- [ ] **23.5** Set black background, white text for body
-- [ ] **23.6** Center grid on screen
+- [x] **23.1** Create `public/style.css`
+- [x] **23.2** Define CSS grid for 24 rows × 40 columns
+- [x] **23.3** Style `.cell` with monospace font, fixed width (1ch), fixed height (1.2em)
+- [x] **23.4** Define colour classes `.fg-0` through `.fg-7`, `.bg-0` through `.bg-7`
+- [x] **23.5** Set black background, white text for body
+- [x] **23.6** Center grid on screen
 
 **Acceptance:** Page renders as authentic teletext grid
 
 ---
 
 ### Task 24: Font Integration [US-2, NFR-6]
-- [ ] **24.1** Research open-licensed teletext fonts (e.g. "Mode7" font under OFL)
-- [ ] **24.2** Download and include font file in `public/fonts/`
-- [ ] **24.3** Update `style.css` with `@font-face` declaration
-- [ ] **24.4** Fallback to `monospace` if font fails to load
+- [x] **24.1** Research open-licensed teletext fonts (e.g. "Mode7" font under OFL)
+- [x] **24.2** Download and include font file in `public/fonts/`
+- [x] **24.3** Update `style.css` with `@font-face` declaration
+- [x] **24.4** Fallback to `monospace` if font fails to load
 
 **Acceptance:** Font displays correctly or falls back gracefully
 
