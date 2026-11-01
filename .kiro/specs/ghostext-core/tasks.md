@@ -114,83 +114,83 @@
 ## Phase 3: Page Generators
 
 ### Task 11: Page 100 — Index [US-7]
-- [ ] **11.1** Create `src/pages/100-index.js`
-- [ ] **11.2** Implement `generate100(ctx)` returning static index page
-- [ ] **11.3** Set header: "Ghostext", page 100, current date/time
-- [ ] **11.4** List available pages (100, 101, 400, 500, 666)
-- [ ] **11.5** Set Fastext: red=101, green=400, yellow=500, cyan=666
+- [x] **11.1** Create `src/pages/100-index.js`
+- [x] **11.2** Implement `generate100(ctx)` returning static index page
+- [x] **11.3** Set header: "Ghostext", page 100, current date/time
+- [x] **11.4** List available pages (100, 101, 400, 500, 666)
+- [x] **11.5** Set Fastext: red=101, green=400, yellow=500, cyan=666
 
 **Acceptance:** Page renders with all navigation links
 
 ---
 
 ### Task 12: Pages 101-103 — BBC News [US-4]
-- [ ] **12.1** Create `src/pages/1xx-news.js`
-- [ ] **12.2** Implement `generate101(ctx)`, `generate102(ctx)`, `generate103(ctx)`
-- [ ] **12.3** Call `fetchRSS('https://feeds.bbci.co.uk/news/rss.xml', ...)`
-- [ ] **12.4** Word-wrap headlines to 37 columns (3-char indent for bullet)
-- [ ] **12.5** Display headlines 1-7 on page 101, 8-14 on 102, 15-21 on 103
-- [ ] **12.6** If `signalLost`, add "⚠ SIGNAL LOST" banner to row 1
-- [ ] **12.7** Set Fastext: red=102/103/101 (next), green=400, yellow=500, cyan=666
+- [x] **12.1** Create `src/pages/1xx-news.js`
+- [x] **12.2** Implement `generate101(ctx)`, `generate102(ctx)`, `generate103(ctx)`
+- [x] **12.3** Call `fetchRSS('https://feeds.bbci.co.uk/news/rss.xml', ...)`
+- [x] **12.4** Word-wrap headlines to 37 columns (3-char indent for bullet)
+- [x] **12.5** Display headlines 1-7 on page 101, 8-14 on 102, 15-21 on 103
+- [x] **12.6** If `signalLost`, add "⚠ SIGNAL LOST" banner to row 1
+- [x] **12.7** Set Fastext: red=102/103/101 (next), green=400, yellow=500, cyan=666
 
 **Acceptance:** Headlines display across three pages, cache works, signal-lost banner appears on failure
 
 ---
 
 ### Task 13: Page 400 — Weather [US-5]
-- [ ] **13.1** Create `src/pages/4xx-weather.js`
-- [ ] **13.2** Implement `generate400(ctx)`
-- [ ] **13.3** Fetch weather for Delhi (28.6139, 77.2090), London (51.5074, -0.1278), New York (40.7128, -74.0060)
-- [ ] **13.4** Display city name, temperature, condition, humidity
-- [ ] **13.5** If `signalLost`, add banner
-- [ ] **13.6** Set Fastext: red=101, green=100, yellow=500, cyan=666
+- [x] **13.1** Create `src/pages/4xx-weather.js`
+- [x] **13.2** Implement `generate400(ctx)`
+- [x] **13.3** Fetch weather for Delhi (28.6139, 77.2090), London (51.5074, -0.1278), New York (40.7128, -74.0060)
+- [x] **13.4** Display city name, temperature, condition, humidity
+- [x] **13.5** If `signalLost`, add banner
+- [x] **13.6** Set Fastext: red=101, green=100, yellow=500, cyan=666
 
 **Acceptance:** Weather displays for all three cities, fallback on failure
 
 ---
 
 ### Task 14: Page 500 — Hacker News [US-6]
-- [ ] **14.1** Create `src/pages/5xx-tech.js`
-- [ ] **14.2** Implement `generate500(ctx)`
-- [ ] **14.3** Fetch top 10 stories from Hacker News
-- [ ] **14.4** Display numbered list with title and score (e.g. "1. Title here (123 points)")
-- [ ] **14.5** Word-wrap titles to 37 columns
-- [ ] **14.6** If `signalLost`, add banner
-- [ ] **14.7** Set Fastext: red=101, green=400, yellow=100, cyan=666
+- [x] **14.1** Create `src/pages/5xx-tech.js`
+- [x] **14.2** Implement `generate500(ctx)`
+- [x] **14.3** Fetch top 10 stories from Hacker News
+- [x] **14.4** Display numbered list with title and score (e.g. "1. Title here (123 points)")
+- [x] **14.5** Word-wrap titles to 37 columns
+- [x] **14.6** If `signalLost`, add banner
+- [x] **14.7** Set Fastext: red=101, green=400, yellow=100, cyan=666
 
 **Acceptance:** Top 10 stories display, fallback on failure
 
 ---
 
 ### Task 15: Page 666 — Haunted Index [US-8]
-- [ ] **15.1** Create `src/pages/666-haunted.js`
-- [ ] **15.2** Implement `generate666(ctx)` returning static spooky page
-- [ ] **15.3** Set header: "THE HAUNTED INDEX", page 666, current date/time
-- [ ] **15.4** Use block-mosaic graphics (░, ▒, ▓, █) for borders
-- [ ] **15.5** List fictional "dead pages" (e.g. 200, 314, 777)
-- [ ] **15.6** Set Fastext: red=101, green=400, yellow=500, cyan=100
+- [x] **15.1** Create `src/pages/666-haunted.js`
+- [x] **15.2** Implement `generate666(ctx)` returning static spooky page
+- [x] **15.3** Set header: "THE HAUNTED INDEX", page 666, current date/time
+- [x] **15.4** Use block-mosaic graphics (░, ▒, ▓, █) for borders
+- [x] **15.5** List fictional "dead pages" (e.g. 200, 314, 777)
+- [x] **15.6** Set Fastext: red=101, green=400, yellow=500, cyan=100
 
 **Acceptance:** Spooky page renders with graphics
 
 ---
 
 ### Task 16: Page 404 — Dead Page [US-9]
-- [ ] **16.1** Create `src/pages/404.js`
-- [ ] **16.2** Implement `generate404(ctx)` returning error page
-- [ ] **16.3** Set header: "Page Not Found", page 404, current date/time
-- [ ] **16.4** Display "THIS PAGE HAS PASSED OVER" message
-- [ ] **16.5** Suggest returning to page 100 or 666
-- [ ] **16.6** Set Fastext: red=100, green=666, yellow=101, cyan=400
+- [x] **16.1** Create `src/pages/404.js`
+- [x] **16.2** Implement `generate404(ctx)` returning error page
+- [x] **16.3** Set header: "Page Not Found", page 404, current date/time
+- [x] **16.4** Display "THIS PAGE HAS PASSED OVER" message
+- [x] **16.5** Suggest returning to page 100 or 666
+- [x] **16.6** Set Fastext: red=100, green=666, yellow=101, cyan=400
 
 **Acceptance:** 404 page renders for any non-existent page
 
 ---
 
 ### Task 17: Page Registry [US-1]
-- [ ] **17.1** Create `src/pages/index.js`
-- [ ] **17.2** Import all generators (100, 101-103, 400, 500, 666, 404)
-- [ ] **17.3** Create `Map` mapping page numbers to generator functions
-- [ ] **17.4** Implement `getPage(number, ctx)` calling appropriate generator or 404
+- [x] **17.1** Create `src/pages/index.js`
+- [x] **17.2** Import all generators (100, 101-103, 400, 500, 666, 404)
+- [x] **17.3** Create `Map` mapping page numbers to generator functions
+- [x] **17.4** Implement `getPage(number, ctx)` calling appropriate generator or 404
 
 **Acceptance:** Registry returns correct page or 404
 
@@ -199,35 +199,35 @@
 ## Phase 4: Servers
 
 ### Task 18: HTTP Server [US-2, US-3]
-- [ ] **18.1** Create `src/server.js`
-- [ ] **18.2** Import `node:http`, `node:fs`
-- [ ] **18.3** Implement route `GET /api/page/:n` returning JSON (call `renderJSON`)
-- [ ] **18.4** Implement route `GET /:n` (Accept: text/plain) returning ANSI (call `renderANSI`)
-- [ ] **18.5** Implement static file serving from `public/` (index.html, app.js, style.css)
-- [ ] **18.6** Default route `/` serves `public/index.html`
-- [ ] **18.7** Create shared `Cache` instance and `fetchWithTimeout` context
-- [ ] **18.8** Listen on port 3000
+- [x] **18.1** Create `src/server.js`
+- [x] **18.2** Import `node:http`, `node:fs`
+- [x] **18.3** Implement route `GET /api/page/:n` returning JSON (call `renderJSON`)
+- [x] **18.4** Implement route `GET /:n` (Accept: text/plain) returning ANSI (call `renderANSI`)
+- [x] **18.5** Implement static file serving from `public/` (index.html, app.js, style.css)
+- [x] **18.6** Default route `/` serves `public/index.html`
+- [x] **18.7** Create shared `Cache` instance and `fetchWithTimeout` context
+- [x] **18.8** Listen on port 3000
 
 **Acceptance:** HTTP server responds to all routes, serves static files
 
 ---
 
 ### Task 19: TCP Server [US-3]
-- [ ] **19.1** Import `node:net` in `src/server.js`
-- [ ] **19.2** Implement TCP server listening on port 2323
-- [ ] **19.3** On connection, send page 100 in ANSI
-- [ ] **19.4** Listen for 3-digit input from client
-- [ ] **19.5** On receiving valid page number, send that page in ANSI
-- [ ] **19.6** Handle disconnection gracefully
+- [x] **19.1** Import `node:net` in `src/server.js`
+- [x] **19.2** Implement TCP server listening on port 2323
+- [x] **19.3** On connection, send page 100 in ANSI
+- [x] **19.4** Listen for 3-digit input from client
+- [x] **19.5** On receiving valid page number, send that page in ANSI
+- [x] **19.6** Handle disconnection gracefully
 
 **Acceptance:** TCP server accepts telnet connections, navigates pages
 
 ---
 
 ### Task 20: Server Startup Script
-- [ ] **20.1** Create `package.json` with `"start": "node src/server.js"`
-- [ ] **20.2** Add `"type": "module"` for ES modules
-- [ ] **20.3** Document startup in README (if needed)
+- [x] **20.1** Create `package.json` with `"start": "node src/server.js"`
+- [x] **20.2** Add `"type": "module"` for ES modules
+- [x] **20.3** Document startup in README (if needed)
 
 **Acceptance:** `npm start` launches server
 

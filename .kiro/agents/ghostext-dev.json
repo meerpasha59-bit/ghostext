@@ -1,11 +1,11 @@
 {
   "name": "ghostext-dev",
   "description": "Development agent for Ghostext project",
-  "prompt": "You are developing Ghostext, a teletext/Ceefax resurrection for Kiroween 2026. Follow the steering docs at .kiro/steering/ (tech, structure, product) and the spec at .kiro/specs/ghostext-core/. Use zero runtime dependencies beyond Node std lib. Keep the 24\u00d740 grid model pure, renderers stateless, and tests comprehensive.",
+  "prompt": "You are developing Ghostext, a teletext/Ceefax resurrection for Kiroween 2026. Follow the steering docs at .kiro/steering/ (tech, structure, product) and the spec at .kiro/specs/ghostext-core/. Use zero runtime dependencies beyond Node std lib. Keep the 24×40 grid model pure, renderers stateless, and tests comprehensive.",
   "tools": [
-    "fs_read",
-    "fs_write",
-    "execute_bash"
+    "read",
+    "shell",
+    "write"
   ],
   "resources": [
     "file://.kiro/steering/**/*.md",
@@ -16,22 +16,59 @@
     "fs_write",
     "execute_bash"
   ],
-  "hooks": {
-    "agentSpawn": [
-      {
+  "hooks": [
+    {
+      "name": "agentSpawn-0",
+      "trigger": "agentSpawn",
+      "action": {
+        "type": "command",
         "command": "git status --short && git log --oneline -5"
-      }
-    ],
-    "userPromptSubmit": [
-      {
-        "command": "grep -c '\\- \\[ \\]' .kiro/specs/ghostext-core/tasks.md | sed 's/^/open spec tasks: /'"
-      }
-    ],
-    "postToolUse": [
-      {
-        "matcher": "fs_write",
+      },
+      "timeout": 10
+    },
+    {
+      "name": "postToolUse-0",
+      "trigger": "postToolUse",
+      "matcher": "write",
+      "action": {
+        "type": "command",
         "command": "node --test 2>&1 | grep -E '^# (pass|fail)'"
+      },
+      "timeout": 10
+    },
+    {
+      "name": "userPromptSubmit-0",
+      "trigger": "userPromptSubmit",
+      "action": {
+        "type": "command",
+        "command": "grep -c '\\- \\[ \\]' .kiro/specs/ghostext-core/tasks.md | sed 's/^/open spec tasks: /'"
+      },
+      "timeout": 10
+    }
+  ],
+  "permissions": {
+    "rules": [
+      {
+        "capability": "fs_read",
+        "effect": "allow"
+      },
+      {
+        "capability": "fs_write",
+        "effect": "allow"
+      },
+      {
+        "capability": "shell",
+        "effect": "allow"
+      },
+      {
+        "capability": "skill",
+        "effect": "allow"
       }
     ]
+  },
+  "kiroUpgrade": {
+    "revision": 2,
+    "fingerprint": "sha256:ff1ad6e20d29b09192a50d745cef5e14bc20344bff9c170fd2e76e125254053e",
+    "source": "sha256:69bb6bd00af9a7e65ff32d40ab2dac00ab4f30fe775b6358b303653312065a38"
   }
 }
