@@ -275,3 +275,44 @@ test('Page generators handle missing data gracefully', async () => {
     assertValidPage(pageArray[0], pageArray[0].number);
   }
 });
+
+// Test page 101 renders bullets correctly
+test('Page 101 — Bullets render as asterisks', async () => {
+  const mockRssData = `<?xml version="1.0"?>
+<rss version="2.0">
+  <channel>
+    <item><title>• First headline with bullet</title></item>
+    <item><title>• Second headline with bullet</title></item>
+  </channel>
+</rss>`;
+
+  const ctx = createTestContext({
+    'https://feeds.bbci.co.uk/news/rss.xml': { text: mockRssData }
+  });
+
+  const pages = await generate101(ctx);
+  const page = pages[0];
+  
+  // Get all text content from the page
+  const pageText = page.cells.map(row => row.map(c => c.ch).join('')).join('\n');
+  
+  // Check that bullets are rendered as asterisks, not as literal bullet characters
+  assert(pageText.includes('*'), 'Page should contain asterisks for bullets');
+  // The original bullet U+2022 should have been transliterated to *
+  assert(!pageText.includes('•'), 'Page should not contain literal bullet characters');
+});
+
+// Test page 666 renders bullets correctly
+test('Page 666 — Bullets and dead pages render correctly', async () => {
+  const ctx = createTestContext();
+  const pages = await generate666(ctx);
+  const page = pages[0];
+  
+  // Get all text content from the page
+  const pageText = page.cells.map(row => row.map(c => c.ch).join('')).join('\n');
+  
+  // Check that the page contains content with bullets
+  assert(pageText.includes('*'), 'Page should contain asterisks for bullets');
+  assert(pageText.includes('PASSED'), 'Page should contain "PASSED"');
+  assert(pageText.includes('HAUNTED'), 'Page should contain "HAUNTED"');
+});

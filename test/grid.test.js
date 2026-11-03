@@ -7,6 +7,7 @@ import {
   writeText,
   setHeader,
   setFastext,
+  formatHeaderClock,
   COLOURS,
   FLAGS
 } from '../src/grid.js';
@@ -159,4 +160,100 @@ test('setFastext writes coloured links', () => {
   for (let i = 30; i < 40; i++) {
     assert.strictEqual(page.cells[23][i].bg, COLOURS.CYAN);
   }
+});
+
+test('formatHeaderClock returns 16-character timestamp', () => {
+  const date = new Date('2026-11-03T06:31:00Z');
+  const result = formatHeaderClock(date);
+  assert.strictEqual(result.length, 16, 'Clock format should be exactly 16 characters');
+  // Format: "Tue 03 Nov 06:31"
+  assert.match(result, /^[A-Z][a-z]{2} \d{2} [A-Z][a-z]{2} \d{2}:\d{2}$/);
+});
+
+test('formatHeaderClock formats with timezone', () => {
+  // Set timezone for test
+  const oldTz = process.env.GHOSTEXT_TZ;
+  try {
+    process.env.GHOSTEXT_TZ = 'UTC';
+    const date = new Date('2026-11-03T06:31:00Z');
+    const result = formatHeaderClock(date);
+    // Should be "Tue 03 Nov 06:31" in UTC
+    assert.ok(result.includes('Tue'));
+    assert.ok(result.includes('03'));
+    assert.ok(result.includes('Nov'));
+    assert.ok(result.includes('06:31'));
+  } finally {
+    if (oldTz !== undefined) {
+      process.env.GHOSTEXT_TZ = oldTz;
+    } else {
+      delete process.env.GHOSTEXT_TZ;
+    }
+  }
+});
+
+test('setHeader right-aligns clock and fits exactly 40 columns', () => {
+  const page = createPage(100);
+  const clockText = 'Tue 03 Nov 06:31'; // 16 chars
+  setHeader(page, 'BBC News', 100, clockText);
+  
+  // Check that header is exactly 40 columns
+  const headerRow = page.cells[0];
+  assert.strictEqual(headerRow.length, 40, 'Header should be exactly 40 columns');
+  
+  // Check that all cells are filled
+  for (let i = 0; i < 40; i++) {
+    assert.strictEqual(typeof headerRow[i].ch, 'string', `Cell [0][${i}] should have a character`);
+  }
+  
+  // Check that clock is at the end (right-aligned)
+  const headerText = headerRow.map(c => c.ch).join('');
+  assert.ok(headerText.includes('BBC News'), 'Header should contain service name');
+  assert.ok(headerText.includes('P100'), 'Header should contain page number');
+  assert.ok(headerText.endsWith(clockText), 'Clock should be right-aligned at the end');
+});
+
+test('setHeader truncates long service name', () => {
+  const page = createPage(100);
+  const longServiceName = 'This is an extremely long service name that should be truncated';
+  const clockText = 'Tue 03 Nov 06:31';
+  setHeader(page, longServiceName, 100, clockText);
+  
+  // Check that header is still exactly 40 columns
+  const headerRow = page.cells[0];
+  assert.strictEqual(headerRow.length, 40);
+  
+  // All cells should be filled
+  for (let i = 0; i < 40; i++) {
+    assert.strictEqual(typeof headerRow[i].ch, 'string');
+  }
+  
+  // Header should end with the clock
+  const headerText = headerRow.map(c => c.ch).join('');
+  assert.ok(headerText.endsWith(clockText), 'Clock should still be right-aligned');
+  assert.ok(headerText.includes('P100'), 'Page number should be present');
+});
+
+test('transliterate handles bullet U+2022', () => {
+  const result = transliterate('\u2022');
+  assert.strictEqual(result, '*');
+});
+
+test('transliterate handles middle dot U+00B7', () => {
+  const result = transliterate('\u00B7');
+  assert.strictEqual(result, '*');
+});
+
+test('transliterate handles black circle U+25CF', () => {
+  const result = transliterate('\u25CF');
+  assert.strictEqual(result, '*');
+});
+
+test('transliterate handles bullets in text', () => {
+  const result = transliterate('• headline one');
+  assert.strictEqual(result, '* headline one');
+});
+
+test('transliterate preserves ellipsis as three dots', () => {
+  const result = transliterate('wait\u2026 loading');
+  assert.strictEqual(result, 'wait... loading');
 });
