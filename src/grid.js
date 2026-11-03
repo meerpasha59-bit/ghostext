@@ -52,6 +52,48 @@ export function createPage(number, subpage = 1, subpageCount = 1) {
 }
 
 /**
+ * Format a date as a compact Ceefax-style timestamp (e.g. "Tue 03 Nov 06:31")
+ * Uses Intl.DateTimeFormat with timezone from process.env.GHOSTEXT_TZ (default Asia/Kolkata)
+ * @param {Date} date - Date to format (default: new Date())
+ * @returns {string} Formatted timestamp
+ */
+export function formatHeaderClock(date = new Date()) {
+  const tz = process.env.GHOSTEXT_TZ || 'Asia/Kolkata';
+  
+  // Get weekday (3-letter)
+  const weekdayFormatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: tz,
+    weekday: 'short'
+  });
+  const weekday = weekdayFormatter.format(date);
+  
+  // Get day (2-digit)
+  const dayFormatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: tz,
+    day: '2-digit'
+  });
+  const day = dayFormatter.format(date);
+  
+  // Get month (3-letter)
+  const monthFormatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: tz,
+    month: 'short'
+  });
+  const month = monthFormatter.format(date);
+  
+  // Get time (HH:MM in 24h format)
+  const timeFormatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: tz,
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  });
+  const time = timeFormatter.format(date);
+  
+  return `${weekday} ${day} ${month} ${time}`;
+}
+
+/**
  * Transliterate Unicode to ASCII/teletext character set
  * @param {string} text - Input text
  * @returns {string} Transliterated text
@@ -74,6 +116,9 @@ export function transliterate(text) {
     '\u00FC': 'u',   // ü
     '\u00F1': 'n',   // ñ
     '\u00E7': 'c',   // ç
+    '\u2022': '*',   // bullet
+    '\u00B7': '*',   // middle dot
+    '\u25CF': '*',   // black circle
   };
 
   let result = '';
@@ -167,7 +212,7 @@ export function writeText(page, row, col, text, fg, bg, maxWidth) {
  * @param {Object} page - Page object
  * @param {string} serviceName - Service name (e.g. "Ghostext")
  * @param {number} pageNumber - Page number
- * @param {string} dateTime - Date/time string
+ * @param {string} dateTime - Date/time string (e.g. "Tue 03 Nov 06:31")
  */
 export function setHeader(page, serviceName, pageNumber, dateTime) {
   // Clear row 0
@@ -181,14 +226,32 @@ export function setHeader(page, serviceName, pageNumber, dateTime) {
   }
 
   // Format header: " P:NNN  SERVICE  DATE/TIME"
-  // Example: " P100  Ghostext  Sun 01 Nov  12:34:56"
+  // Right-align the clock (always 14 chars: "Tue 03 Nov 06:31")
+  // Left section: " P100  SERVICE"
   const pageStr = String(pageNumber).padStart(3, ' ');
-  const headerText = ` P${pageStr}  ${serviceName.padEnd(15)}${dateTime}`;
+  const pagePrefix = ` P${pageStr}  `;
   
-  // Write header, truncated/fitted to 40 columns
-  for (let col = 0; col < 40 && col < headerText.length; col++) {
+  // Clock always takes 14 chars at the end
+  const clockEndCol = 40; // cols 0-39
+  const clockStartCol = clockEndCol - dateTime.length;
+  
+  // Available space for service name: clockStartCol - pagePrefix.length
+  const maxServiceLen = clockStartCol - pagePrefix.length;
+  
+  // Truncate or pad service name
+  let serviceDisplay;
+  if (serviceName.length > maxServiceLen) {
+    serviceDisplay = serviceName.substring(0, Math.max(1, maxServiceLen - 1)) + '…';
+  } else {
+    serviceDisplay = serviceName.padEnd(maxServiceLen);
+  }
+  
+  const headerText = pagePrefix + serviceDisplay + dateTime;
+  
+  // Write header to row 0, exactly 40 columns
+  for (let col = 0; col < 40; col++) {
     page.cells[0][col] = {
-      ch: headerText[col],
+      ch: col < headerText.length ? headerText[col] : ' ',
       fg: COLOURS.WHITE,
       bg: COLOURS.BLACK,
       flags: 0
