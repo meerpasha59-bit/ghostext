@@ -300,27 +300,41 @@ class GhostextClient {
   }
   
   /**
+   * Format a date as compact Ceefax-style timestamp
+   * Uses the browser's local time
+   */
+  formatHeaderClock(date = new Date()) {
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    
+    const weekday = weekdays[date.getDay()];
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = months[date.getMonth()];
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    
+    return `${weekday} ${day} ${month} ${hours}:${minutes}`;
+  }
+  
+  /**
    * Update the clock in the header (row 0)
    */
   updateClock() {
     const now = new Date();
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    
-    const dayName = days[now.getDay()];
-    const date = now.getDate();
-    const month = months[now.getMonth()];
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    
-    const clockText = `${dayName} ${date} ${month} ${hours}:${minutes}`;
+    const clockText = this.formatHeaderClock(now);
     
     // Find all cells in the header and update clock position if needed
     const cells = document.querySelectorAll('.cell');
     if (cells.length >= 40) {
-      // Header is in the first 40 cells
-      // Update the clock area (typically at the end of the header, around cells 25-39)
-      // We'll just rely on the page generator for this, but could update here if needed
+      // Header is in the first 40 cells (row 0)
+      // The clock should be right-aligned, so we update the last 14 characters of the header
+      const clockStartIdx = 40 - clockText.length;
+      for (let i = 0; i < clockText.length; i++) {
+        const cellIdx = clockStartIdx + i;
+        if (cellIdx >= 0 && cellIdx < 40) {
+          cells[cellIdx].textContent = clockText[i];
+        }
+      }
     }
   }
   
