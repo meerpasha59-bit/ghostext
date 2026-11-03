@@ -2,7 +2,7 @@
  * Page 404 — Dead Page (not found)
  */
 
-import { createPage, setHeader, setFastext, writeText, COLOURS } from '../grid.js';
+import { createPage, setHeader, setFastext, writeText, formatHeaderClock, COLOURS } from '../grid.js';
 
 /**
  * Generate page 404 (error page)
@@ -13,14 +13,7 @@ export async function generate404(ctx) {
   const page = createPage(404);
 
   // Header
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('en-GB', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-    year: '2-digit'
-  });
-  setHeader(page, 'Page Not Found', 404, dateStr);
+  setHeader(page, 'Page Not Found', 404, formatHeaderClock());
 
   // Content
   let row = 3;

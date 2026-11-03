@@ -2,7 +2,7 @@
  * Page 400 — Weather
  */
 
-import { createPage, setHeader, setFastext, writeText, COLOURS } from '../grid.js';
+import { createPage, setHeader, setFastext, writeText, formatHeaderClock, COLOURS } from '../grid.js';
 import { fetchWeather } from '../sources/weather.js';
 
 const CITIES = [
@@ -20,14 +20,7 @@ export async function generate400(ctx) {
   const page = createPage(400);
 
   // Header
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('en-GB', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-    year: '2-digit'
-  });
-  setHeader(page, 'Weather', 400, dateStr);
+  setHeader(page, 'Weather', 400, formatHeaderClock());
 
   let row = 2;
   let hasError = false;

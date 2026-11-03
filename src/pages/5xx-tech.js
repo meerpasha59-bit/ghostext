@@ -2,7 +2,7 @@
  * Page 500 — Hacker News
  */
 
-import { createPage, setHeader, setFastext, writeText, COLOURS } from '../grid.js';
+import { createPage, setHeader, setFastext, writeText, formatHeaderClock, COLOURS } from '../grid.js';
 import { fetchHackerNews } from '../sources/hackernews.js';
 
 /**
@@ -14,14 +14,7 @@ export async function generate500(ctx) {
   const page = createPage(500);
 
   // Header
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('en-GB', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-    year: '2-digit'
-  });
-  setHeader(page, 'Hacker News', 500, dateStr);
+  setHeader(page, 'Hacker News', 500, formatHeaderClock());
 
   try {
     // Fetch top stories

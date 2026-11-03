@@ -2,7 +2,7 @@
  * Pages 101-103 — BBC News
  */
 
-import { createPage, setHeader, setFastext, writeText, COLOURS } from '../grid.js';
+import { createPage, setHeader, setFastext, writeText, formatHeaderClock, COLOURS } from '../grid.js';
 import { fetchRSS } from '../sources/rss.js';
 
 const BBC_RSS_URL = 'https://feeds.bbci.co.uk/news/rss.xml';
@@ -16,22 +16,8 @@ const BBC_RSS_URL = 'https://feeds.bbci.co.uk/news/rss.xml';
 async function generateNewsPage(pageNum, ctx) {
   const page = createPage(pageNum);
 
-  // Header with full date/time format: "Sun 01 Nov  05:58:12"
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('en-GB', {
-    weekday: 'short',
-    day: '2-digit',
-    month: 'short'
-  });
-  const timeStr = now.toLocaleTimeString('en-GB', {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false
-  });
-  const dateTime = `${dateStr}  ${timeStr}`;
-  
-  setHeader(page, 'BBC News', pageNum, dateTime);
+  // Header with compact date/time format using formatHeaderClock
+  setHeader(page, 'BBC News', pageNum, formatHeaderClock());
 
   try {
     // Fetch RSS feed

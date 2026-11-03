@@ -2,7 +2,7 @@
  * Page 666 — The Haunted Index
  */
 
-import { createPage, setHeader, setFastext, writeText, COLOURS } from '../grid.js';
+import { createPage, setHeader, setFastext, writeText, formatHeaderClock, COLOURS } from '../grid.js';
 
 /**
  * Generate page 666 (haunted index page)
@@ -13,14 +13,7 @@ export async function generate666(ctx) {
   const page = createPage(666);
 
   // Header: "THE HAUNTED INDEX", page 666
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('en-GB', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-    year: '2-digit'
-  });
-  setHeader(page, 'THE HAUNTED INDEX', 666, dateStr);
+  setHeader(page, 'THE HAUNTED INDEX', 666, formatHeaderClock());
 
   // Spooky border with block graphics
   let row = 2;

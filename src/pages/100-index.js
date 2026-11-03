@@ -2,7 +2,7 @@
  * Page 100 — Index
  */
 
-import { createPage, setHeader, setFastext, writeText, COLOURS } from '../grid.js';
+import { createPage, setHeader, setFastext, writeText, formatHeaderClock, COLOURS } from '../grid.js';
 
 /**
  * Generate page 100 (index page)
@@ -13,14 +13,7 @@ export async function generate100(ctx) {
   const page = createPage(100);
 
   // Header: "Ghostext", page number, current date/time
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('en-GB', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-    year: '2-digit'
-  });
-  setHeader(page, 'Ghostext', 100, dateStr);
+  setHeader(page, 'Ghostext', 100, formatHeaderClock());
 
   // Content: welcome and page list
   let row = 2;
