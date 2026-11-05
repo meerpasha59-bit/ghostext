@@ -283,55 +283,55 @@
 ## Phase 6: Testing
 
 ### Task 25: Unit Tests — Grid [US-10, US-11]
-- [ ] **25.1** Create `test/grid.test.js`
-- [ ] **25.2** Test `createPage` returns 24×40 grid
-- [ ] **25.3** Test `wordWrap` with various inputs (short, long, single-word overflow)
-- [ ] **25.4** Test `transliterate` with Unicode characters (smart quotes, em-dashes, emoji)
-- [ ] **25.5** Test `writeText` stays within bounds, wraps correctly
-- [ ] **25.6** Test `setHeader` and `setFastext` populate correct rows
+- [x] **25.1** Create `test/grid.test.js`
+- [x] **25.2** Test `createPage` returns 24×40 grid
+- [x] **25.3** Test `wordWrap` with various inputs (short, long, single-word overflow)
+- [x] **25.4** Test `transliterate` with Unicode characters (smart quotes, em-dashes, emoji)
+- [x] **25.5** Test `writeText` stays within bounds, wraps correctly
+- [x] **25.6** Test `setHeader` and `setFastext` populate correct rows
 
 **Acceptance:** All tests pass with `node --test test/grid.test.js`
 
 ---
 
 ### Task 26: Unit Tests — Renderers [US-1]
-- [ ] **26.1** Create `test/render.test.js`
-- [ ] **26.2** Test `renderHTML` produces valid HTML with correct structure
-- [ ] **26.3** Test `renderANSI` produces correct ANSI codes
-- [ ] **26.4** Test `renderJSON` produces parseable JSON
+- [x] **26.1** Create `test/render.test.js`
+- [x] **26.2** Test `renderHTML` produces valid HTML with correct structure
+- [x] **26.3** Test `renderANSI` produces correct ANSI codes
+- [x] **26.4** Test `renderJSON` produces parseable JSON
 
 **Acceptance:** All tests pass with `node --test test/render.test.js`
 
 ---
 
 ### Task 27: Unit Tests — Cache [US-4, US-5, US-6]
-- [ ] **27.1** Create `test/cache.test.js`
-- [ ] **27.2** Test cache stores and retrieves values
-- [ ] **27.3** Test cache respects TTL (wait for expiration, check `null`)
-- [ ] **27.4** Test cache evicts expired entries
+- [x] **27.1** Create `test/cache.test.js`
+- [x] **27.2** Test cache stores and retrieves values
+- [x] **27.3** Test cache respects TTL (wait for expiration, check `null`)
+- [x] **27.4** Test cache evicts expired entries
 
 **Acceptance:** All tests pass with `node --test test/cache.test.js`
 
 ---
 
 ### Task 28: Property-Based Tests [US-11]
-- [ ] **28.1** Create `test/property.test.js`
-- [ ] **28.2** Implement `randomString(maxLen)` generator (random length, random Unicode)
-- [ ] **28.3** Run 100+ iterations: call `writeText` with random input
-- [ ] **28.4** Assert grid remains 24×40, no exceptions thrown
-- [ ] **28.5** Test with edge cases: empty strings, control characters, very long strings
+- [x] **28.1** Create `test/property.test.js`
+- [x] **28.2** Implement `randomString(maxLen)` generator (random length, random Unicode)
+- [x] **28.3** Run 100+ iterations: call `writeText` with random input
+- [x] **28.4** Assert grid remains 24×40, no exceptions thrown
+- [x] **28.5** Test with edge cases: empty strings, control characters, very long strings
 
 **Acceptance:** All tests pass, no crashes observed
 
 ---
 
 ### Task 29: Integration Test — End-to-End
-- [ ] **29.1** Create `test/integration.test.js`
-- [ ] **29.2** Start HTTP server programmatically
-- [ ] **29.3** Fetch `/api/page/100`, assert JSON structure
-- [ ] **29.4** Fetch `/100`, assert ANSI output
-- [ ] **29.5** Fetch `/api/page/999`, assert 404 page returned
-- [ ] **29.6** Shut down server
+- [x] **29.1** Create `test/integration.test.js`
+- [x] **29.2** Start HTTP server programmatically
+- [x] **29.3** Fetch `/api/page/100`, assert JSON structure
+- [x] **29.4** Fetch `/100`, assert ANSI output
+- [x] **29.5** Fetch `/api/page/999`, assert 404 page returned
+- [x] **29.6** Shut down server
 
 **Acceptance:** All endpoints respond correctly
 
@@ -340,20 +340,20 @@
 ## Phase 7: Documentation & Polish
 
 ### Task 30: README
-- [ ] **30.1** Create `README.md` with project overview
-- [ ] **30.2** Document installation: `npm install` (if deps added), `npm start`
-- [ ] **30.3** Document usage: web browser, curl, telnet
-- [ ] **30.4** List available pages (100, 101-103, 400, 500, 666, 404)
-- [ ] **30.5** Credit sources (BBC RSS, Open-Meteo, Hacker News)
-- [ ] **30.6** Add MIT license reference
+- [x] **30.1** Create `README.md` with project overview
+- [x] **30.2** Document installation: `npm install` (if deps added), `npm start`
+- [x] **30.3** Document usage: web browser, curl, telnet
+- [x] **30.4** List available pages (100, 101-103, 400, 500, 666, 404)
+- [x] **30.5** Credit sources (BBC RSS, Open-Meteo, Hacker News)
+- [x] **30.6** Add MIT license reference
 
 **Acceptance:** README is clear and complete
 
 ---
 
 ### Task 31: License
-- [ ] **31.1** Create `LICENSE` file with MIT license text
-- [ ] **31.2** Add copyright notice with current year
+- [x] **31.1** Create `LICENSE` file with MIT license text
+- [x] **31.2** Add copyright notice with current year
 
 **Acceptance:** LICENSE file exists
 
